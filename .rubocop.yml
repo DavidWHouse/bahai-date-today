@@ -1,0 +1,10 @@
+Metrics/LineLength:
+  Max: 140
+
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - 'bin/*'
+    - 'spec/coffee_app_integration_spec.rb'
