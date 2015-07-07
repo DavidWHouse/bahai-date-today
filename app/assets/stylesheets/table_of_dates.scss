@@ -1,0 +1,17 @@
+#table-of-dates {
+  th {
+    text-align: center;
+  }
+  td, th {
+    padding: 2px 8px;
+  }
+  td:nth-child(2), td:nth-child(4) {
+    border-right: 1px solid black;
+  }
+  .bold_under {
+    border-bottom: 2px solid black;
+  }
+  .line_under {
+    border-bottom: 1px solid black;
+  }
+}

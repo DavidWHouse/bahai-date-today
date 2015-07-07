@@ -1,0 +1,24 @@
+<% content_for :title, 'Table of Dates' %>
+<% content_for :active, 'table-of-dates' %>
+<table id="table-of-dates">
+  <thead>
+    <tr class="bold_under">
+      <th colspan="2">Naw-Rúz</th>
+      <th colspan="2">The Birth of the Báb<br />and The Birth of Bahá’u’lláh</th>
+      <th colspan="2">Ayyám-i-Há</th>
+    </tr>
+    <tr class="line_under">
+      <th>Bahá’í<br />Dates</th>
+      <th>Gregorian<br />Equivalent</th>
+      <th>Bahá’í<br />Dates</th>
+      <th>Gregorian<br />Equivalent</th>
+      <th>Bahá’í<br />Dates</th>
+      <th>Gregorian<br />Equivalent</th>
+    </tr>
+    </thead>
+  <% for year in @start_year..@end_year %>
+  <tr>
+    <%= year_row(year) %>
+  </tr>
+  <% end %>
+</table>

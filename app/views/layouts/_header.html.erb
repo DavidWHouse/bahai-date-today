@@ -17,6 +17,10 @@
           <%= link_to 'Bahá’í Calendar', page_url('bahai-calendar'), id: 'bahai-calendar' %>
         </li>
 
+        <li class="table-of-dates<%= ' active' if yield(:active) == 'table-of-dates' %>">
+          <%= link_to 'Table of Dates', page_url('table-of-dates'), id: 'table-of-dates' %>
+        </li>
+
         <li class="about<%= ' active' if yield(:active) == 'about' %>">
           <%= link_to 'About', page_url('about'), id: 'about' %>
         </li>

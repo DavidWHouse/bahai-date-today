@@ -35,6 +35,9 @@ gem 'high_voltage'
 # Google web fonts
 gem 'google-webfonts'
 
+# astro-algo gem with fixes
+gem 'astro-algo', git: 'git@github.com:lessan/astro-algo.git'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
