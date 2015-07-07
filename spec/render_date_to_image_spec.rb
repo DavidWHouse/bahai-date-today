@@ -1,18 +1,19 @@
 require 'render_date_to_image'
 
 describe RenderDateToImage do
-  let(:renderer) { RenderDateToImage.new }
+  let(:renderer) { RenderDateToImage.new('date', 'path') }
 
   it 'sets the date' do
-    renderer.set_date(1, 1, 1)
-    expect(renderer.date.to_s).to eq('1.1.1')
+    expect(renderer.date).to eq('date')
   end
 
-  it 'sets the path' do
-    date = double
-    renderer.date = date
-    allow(date).to receive(:to_s).and_return('date')
-    renderer.set_path('root')
+  it 'sets the rails root path' do
+    expect(renderer.rails_root).to eq('path')
+  end
+
+  it 'determines the target path' do
+    renderer.rails_root = Pathname.new('root')
+    renderer.determine_target_path
     expect(renderer.target_path).to eq('root/tmp/date.jpg')
   end
 
@@ -43,12 +44,11 @@ describe RenderDateToImage do
   end
 
   it 'performs all steps and returns the image' do
-    expect(renderer).to receive(:set_date).with(1, 2, 3)
-    expect(renderer).to receive(:set_path).with('root')
+    expect(renderer).to receive(:determine_target_path)
     expect(renderer).to receive(:load_template)
     expect(renderer).to receive(:render_template_to_html)
     expect(renderer).to receive(:render_html_to_image).and_return('image_path')
-    result = renderer.perform(1, 2, 3, 'root')
+    result = renderer.perform
     expect(result).to eq('image_path')
   end
 end

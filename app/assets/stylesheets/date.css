@@ -1,0 +1,237 @@
+body {
+  margin: 0;
+  background-color: #666;
+  -webkit-font-feature-settings: 'kern';
+}
+
+u {
+  text-decoration: none;
+  border-bottom-width: 0.1em;
+  border-bottom-style: solid;
+  border-bottom-color: initial;
+  display: inline-block;
+  line-height: 0.82em;
+}
+
+sup {
+  line-height: 0;
+  font-size: 0.7em;
+}
+
+.content {
+  position: relative;
+  width: 968px;
+  height: 506px;
+  background-color: #fff;
+  font-family: 'Source Sans Pro', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: image_url('notebook.jpg');
+}
+
+#longdate {
+  font-weight: 900;
+  font-size: 48px;
+  text-align: center;
+}
+
+  #longdate .gregorian {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    word-spacing: 0.3em;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: #222;
+    padding-top: 18px;
+  }
+
+  #longdate .badi {
+    font-size: 1.7em;
+    word-spacing: 0.12em;
+    line-height: 0.8em;
+  }
+
+.left-side {
+  float: left;
+  padding: 14px 0px;
+  margin-left: 4px;
+  width: 573px;
+  height: 338px;
+}
+
+
+.right-side {
+  float:right;
+  padding: 12px 6px 6px 0;
+}
+  
+#weekdays, #days, #months { 
+  width: 384px;
+  position: relative;
+  margin-bottom: 11px;
+}
+
+#year {
+  width: 132px;
+}
+
+  #weekdays .description,
+  #days .description,
+  #months .description,
+  #year .description {
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 20px;
+  }
+
+  #weekdays .current,
+  #days .current,
+  #months .current,
+  #year .current {
+    border: 4px solid #bbb;
+    font-size: 32px;
+    font-weight: 700;
+    background-color: #fff;
+    padding: 2px 4px 4px 4px;
+    line-height: 32px;
+  }
+
+  #weekdays .current,
+  #days .current,
+  #months .current {
+      border-bottom: none;
+  }
+
+  #weekdays .container,
+  #days .container,
+  #months .container {
+    border: 2px solid #bbb;
+    border-top: none;
+    height: 22px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+    #weekdays .weekday,
+    #days .day,
+    #months .month {
+      height: 16px;
+      border: 2px solid #bbb;
+      border-top-width: 4px;
+      float: left;
+      font-size: 12px;
+      color: #999;
+    }
+
+    #days .day,
+    #months .month {
+      width: 16px;
+    }
+
+    #weekdays .weekday {
+      text-transform: uppercase;
+      width: 50px;
+    }
+
+      #weekdays .weekday5 { width: 44px; }
+      #weekdays .weekday6 { width: 54px; }
+      #weekdays .weekday7 { width: 54px; }
+
+    #weekdays .selected,
+    #days .selected,
+    #months .selected {
+      border-top-color: transparent;
+      color: inherit;
+      background-color: #fff;
+      font-weight: 900;
+    }
+
+  #weekdays .translation,
+  #days .translation,
+  #months .translation {
+    color: #222;
+    position: absolute;
+    right: 6px;
+  }
+
+
+#occasions {
+  width: 100%;
+}
+
+  #occasions .today,
+  #occasions .tomorrow {
+    margin: 2em 0;
+  }
+
+  #occasions .occasion {
+    font-size: 3.1em;
+    font-weight: 700;
+    line-height: 1em;
+    margin-bottom: 0.2em;
+    letter-spacing: -0.01em;
+  }
+
+  #occasions .description {
+    text-transform: uppercase;
+    color: #999;
+    font-weight: 900;
+    font-size: 34px;
+  }
+
+
+#occasions .feast {
+  color: #088A4B;
+}
+
+#occasions .ridvan {
+  color: #4C0B5F;
+}
+
+#occasions .holy {
+  color: #DF0101;
+}
+
+#occasions .intercalery {
+  color: #DF3A01;
+}
+
+#occasions .fast {
+  color: #084B8A;
+}
+
+#occasions .stop {
+  display: none;
+  color: black;
+  background: white;
+  border: 3px solid red;
+  font-size: 22px;
+  line-height: 28px;
+  vertical-align: middle;
+  padding: 0 2px;
+  border-radius: 11px;
+  text-transform: uppercase;
+  font-weight: 900;
+  margin-left: 4px;
+  position: relative;
+  letter-spacing: -0.05em;
+}
+
+  #occasions .stop:after {
+    background: image_url('redline.png');
+    background-size: 100% 100%;
+    content: ' ';
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+  }
+
+  #occasions .nowork .stop {
+    display: inline-block;
+  }
+
+  #occasions .nowork .stop:before {
+    content: 'Work';
+  }

@@ -1,3 +1,8 @@
+<%
+def sel(expected, actual)
+  ' selected' if expected == actual
+end
+ %>
 <div class="content">
 
   <div id="longdate">
@@ -6,7 +11,6 @@
   </div><!-- .longdate -->
 
 
-  
   <div class="left-side">
 
     <div id="occasions">
@@ -25,9 +29,9 @@
       </div>
       <% end %>
     </div><!-- .occasions -->
-  
+
   </div><!-- .left-side -->
-  
+
   <div class="right-side">
 
     <div id="weekdays">
@@ -75,7 +79,7 @@
         <div class="day name19<%= sel(19, @date.day.number) %>" title="19. ‘Alá’ (Loftiness)">19</div>
       </div><!-- .container -->
     </div><!-- #days -->
-    
+
     <div id="months">
       <div class="description">Month</div>
       <div class="current">
@@ -107,13 +111,12 @@
         <div class="month name19<%= sel(19, @date.month.number) %>" title="19. ‘Alá’ (Loftiness)">19</div>
       </div><!-- .container -->
     </div><!-- #months -->
-    
+
     <div id="year">
       <div class="description">Year</div>
       <div class="current"><%= @date.year.bahai_era %> B.E.</div>
     </div><!-- #year -->
 
   </div><!-- .right-side -->
-  
-</div><!-- .content -->
 
+</div><!-- .content -->
