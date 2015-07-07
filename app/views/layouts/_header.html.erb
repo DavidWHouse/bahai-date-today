@@ -9,16 +9,15 @@
 
     <div class="menu-menu-container">
       <ul class="nav-menu" id="menu-menu">
-        <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home">
-          <%= link_to 'Home', root_url, id: 'home', class: 'current' %>
+        <li class="home<%= ' active' if yield(:active) == 'home' %>">
+          <%= link_to 'Home', root_url, id: 'home' %>
         </li>
 
-        <li class="menu-item menu-item-type-post_type menu-item-object-page">
+        <li class="bahai-calendar<%= ' active' if yield(:active) == 'bahai-calendar' %>">
           <%= link_to 'Bahá’í Calendar', page_url('bahai-calendar'), id: 'bahai-calendar' %>
         </li>
 
-
-        <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item">
+        <li class="about<%= ' active' if yield(:active) == 'about' %>">
           <%= link_to 'About', page_url('about'), id: 'about' %>
         </li>
       </ul>

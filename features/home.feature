@@ -10,13 +10,14 @@ Feature: visitors view the website
   Scenario: view the navigation bar
     Given I am on the landing page
     Then the navigation bar should be visible
-    And the "Home" link should be highlighted
+    And the "home" item in the navigation bar should be highlighted
 
   Scenario Outline: the navigation bar links to various pages
     Given I am on the landing page
-    When I click on the <page_name> link
+    When I click on the "<page_title>" link
     Then I should be on the "<page_name>" page
-    And the "<page_title>" link should be highlighted
+    And the page title should include "<page_title>"
+    And the "<page_name>" item in the navigation bar should be highlighted
 
     Examples:
       | page_name       | page_title      |

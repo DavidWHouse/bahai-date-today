@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= yield(:page_title) %> Bahá’í Date Today</title>
+  <title><%= compose_title(yield(:title)) %></title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= google_webfonts_link_tag :source_sans_pro => [700, 900] %>
@@ -10,12 +10,12 @@
 </head>
 <body>
 <div id="page" class="site">
-<%= render "layouts/header" %>
-<div id="main" class="wrapper">
-<div id="content">
-<%= yield %>
+  <%= render "layouts/header" %>
+  <div id="main" class="wrapper">
+    <div id="content">
+      <%= yield %>
+    </div>
+  </div>
 </div>
-</div>
-
 </body>
 </html>
