@@ -1,0 +1,119 @@
+<div class="content">
+
+  <div id="longdate">
+    <div class="gregorian"><%= @date.gregorian_date.strftime('%A %e %B %Y') %></div>
+    <div class="badi"><%= @date.weekday.html.html_safe %> <%= @date.day.number %> <%= @date.month.html.html_safe %> <%= @date.year.bahai_era %></div>
+  </div><!-- .longdate -->
+
+
+  
+  <div class="left-side">
+
+    <div id="occasions">
+      <% if false then # today_type_1 != '' then %>
+      <div class="today">
+        <div class="description">Today is</div>
+        <div class="occasion <%= today_type_1 %>"><%= today.html.html_safe_1 %><span class="stop"></span></div>
+        <div class="occasion <%= today_type_2 %>"><%= today.html.html_safe_2 %><span class="stop"></span></div>
+      </div>
+      <% end %>
+      <% if false then #tomorrow_type_1 != '' then %>
+      <div class="tomorrow">
+        <div class="description">Tomorrow is</div>
+        <div class="occasion <%= tomorrow_type_1 %>"><%= tomorrow.html.html_safe_1 %><span class="stop"></span></div>
+        <div class="occasion <%= tomorrow_type_2 %>"><%= tomorrow.html.html_safe_2 %><span class="stop"></span></div>
+      </div>
+      <% end %>
+    </div><!-- .occasions -->
+  
+  </div><!-- .left-side -->
+  
+  <div class="right-side">
+
+    <div id="weekdays">
+      <div class="description">Weekday</div>
+      <div class="current"><%= @date.weekday.html.html_safe %><span class="translation">(<%= @date.weekday.translation %>)</span></div>
+      <div class="container">
+        <div class="weekday weekday1<%= sel(1, @date.weekday.number) %>" title="Jalál (Glory)">Jalál</div>
+        <div class="weekday weekday2<%= sel(2, @date.weekday.number) %>" title="Jamál (Beauty)">Jamál</div>
+        <div class="weekday weekday3<%= sel(3, @date.weekday.number) %>" title="Kamál (Perfection)">Kamál</div>
+        <div class="weekday weekday4<%= sel(4, @date.weekday.number) %>" title="Fiḍál (Grace)">Fiḍál</div>
+        <div class="weekday weekday5<%= sel(5, @date.weekday.number) %>" title="‘Idál (Justice)">‘Idál</div>
+        <div class="weekday weekday6<%= sel(6, @date.weekday.number) %>" title="Istijlál (Majesty)">Istijlál</div>
+        <div class="weekday weekday7<%= sel(7, @date.weekday.number) %>" title="Istiqlál (Independence)">Istiqlál</div>
+      </div><!-- .container -->
+    </div><!-- #weekdays -->
+
+    <div id="days">
+      <div class="description">Day of the month</div>
+      <div class="current">
+      <% if @date.month.number == 20 then %>
+        <%= @date.day.translation %>
+      <% else %>
+        <%= @date.day.number %>. <%= @date.day.html.html_safe %><span class="translation">(<%= @date.day.translation %>)</span>
+      <% end %>
+      </div>
+      <div class="container">
+        <div class="day name1<%= sel(1, @date.day.number) %>" title="1. Bahá (Splendor)">1</div>
+        <div class="day name2<%= sel(2, @date.day.number) %>" title="2. Jalál (Glory)">2</div>
+        <div class="day name3<%= sel(3, @date.day.number) %>" title="3. Jamál (Beauty)">3</div>
+        <div class="day name4<%= sel(4, @date.day.number) %>" title="4. ‘Aẓamat (Grandeur)">4</div>
+        <div class="day name5<%= sel(5, @date.day.number) %>" title="5. Núr (Light)">5</div>
+        <div class="day name6<%= sel(6, @date.day.number) %>" title="6. Raḥmat (Mercy)">6</div>
+        <div class="day name7<%= sel(7, @date.day.number) %>" title="7. Kalimát (Words)">7</div>
+        <div class="day name8<%= sel(8, @date.day.number) %>" title="8. Kamál (Perfection)">8</div>
+        <div class="day name9<%= sel(9, @date.day.number) %>" title="9. Asmá’ (Names)">9</div>
+        <div class="day name10<%= sel(10, @date.day.number) %>" title="10. ‘Izzat (Might)">10</div>
+        <div class="day name11<%= sel(11, @date.day.number) %>" title="11. Mashíyyat (Will)">11</div>
+        <div class="day name12<%= sel(12, @date.day.number) %>" title="12. ‘Ilm (Knowledge)">12</div>
+        <div class="day name13<%= sel(13, @date.day.number) %>" title="13. Qudrat (Power)">13</div>
+        <div class="day name14<%= sel(14, @date.day.number) %>" title="14. Qawl (Speech)">14</div>
+        <div class="day name15<%= sel(15, @date.day.number) %>" title="15. Masá’il (Questions)">15</div>
+        <div class="day name16<%= sel(16, @date.day.number) %>" title="16. Sharaf (Honour)">16</div>
+        <div class="day name17<%= sel(17, @date.day.number) %>" title="17. Sulṭán (Sovereignty)">17</div>
+        <div class="day name18<%= sel(18, @date.day.number) %>" title="18. Mulk (Dominion)">18</div>
+        <div class="day name19<%= sel(19, @date.day.number) %>" title="19. ‘Alá’ (Loftiness)">19</div>
+      </div><!-- .container -->
+    </div><!-- #days -->
+    
+    <div id="months">
+      <div class="description">Month</div>
+      <div class="current">
+      <% if @date.month.number == 20 then %>
+        <%= @date.month.html.html_safe %>
+      <% else %>
+        <%= @date.month.number %>. <%= @date.month.html.html_safe %><span class="translation">(<%= @date.month.translation %>)</span>
+      <% end %>
+      </div>
+      <div class="container">
+        <div class="month name1<%= sel(1, @date.month.number) %>" title="1. Bahá (Splendor)">1</div>
+        <div class="month name2<%= sel(2, @date.month.number) %>" title="2. Jalál (Glory)">2</div>
+        <div class="month name3<%= sel(3, @date.month.number) %>" title="3. Jamál (Beauty)">3</div>
+        <div class="month name4<%= sel(4, @date.month.number) %>" title="4. ‘Aẓamat (Grandeur)">4</div>
+        <div class="month name5<%= sel(5, @date.month.number) %>" title="5. Núr (Light)">5</div>
+        <div class="month name6<%= sel(6, @date.month.number) %>" title="6. Raḥmat (Mercy)">6</div>
+        <div class="month name7<%= sel(7, @date.month.number) %>" title="7. Kalimát (Words)">7</div>
+        <div class="month name8<%= sel(8, @date.month.number) %>" title="8. Kamál (Perfection)">8</div>
+        <div class="month name9<%= sel(9, @date.month.number) %>" title="9. Asmá’ (Names)">9</div>
+        <div class="month name10<%= sel(10, @date.month.number) %>" title="10. ‘Izzat (Might)">10</div>
+        <div class="month name11<%= sel(11, @date.month.number) %>" title="11. Mashíyyat (Will)">11</div>
+        <div class="month name12<%= sel(12, @date.month.number) %>" title="12. ‘Ilm (Knowledge)">12</div>
+        <div class="month name13<%= sel(13, @date.month.number) %>" title="13. Qudrat (Power)">13</div>
+        <div class="month name14<%= sel(14, @date.month.number) %>" title="14. Qawl (Speech)">14</div>
+        <div class="month name15<%= sel(15, @date.month.number) %>" title="15. Masá’il (Questions)">15</div>
+        <div class="month name16<%= sel(16, @date.month.number) %>" title="16. Sharaf (Honour)">16</div>
+        <div class="month name17<%= sel(17, @date.month.number) %>" title="17. Sulṭán (Sovereignty)">17</div>
+        <div class="month name18<%= sel(18, @date.month.number) %>" title="18. Mulk (Dominion)">18</div>
+        <div class="month name19<%= sel(19, @date.month.number) %>" title="19. ‘Alá’ (Loftiness)">19</div>
+      </div><!-- .container -->
+    </div><!-- #months -->
+    
+    <div id="year">
+      <div class="description">Year</div>
+      <div class="current"><%= @date.year.bahai_era %> B.E.</div>
+    </div><!-- #year -->
+
+  </div><!-- .right-side -->
+  
+</div><!-- .content -->
+
