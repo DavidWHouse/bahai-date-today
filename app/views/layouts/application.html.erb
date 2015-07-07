@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>BahaiDateToday</title>
+  <title><%= yield(:page_title) %> Bahá’í Date Today</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= google_webfonts_link_tag :source_sans_pro => [700, 900] %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div id="page" class="site">
+<%= render "layouts/header" %>
+<div id="main" class="wrapper">
+<div id="content">
 <%= yield %>
+</div>
+</div>
 
 </body>
 </html>
