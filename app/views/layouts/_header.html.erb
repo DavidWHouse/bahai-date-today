@@ -4,22 +4,22 @@
   </hgroup>
 
 
-  <nav class="main-navigation" id="site-navigation">
+  <nav id="site-navigation">
     <button class="menu-toggle">Menu</button> <a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
 
     <div class="menu-menu-container">
       <ul class="nav-menu" id="menu-menu">
         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-home">
-          <%= link_to 'Home', root_url %>
+          <%= link_to 'Home', root_url, id: 'home', class: 'current' %>
         </li>
 
         <li class="menu-item menu-item-type-post_type menu-item-object-page">
-          <%= link_to 'Bahá’í Calendar', page_url('bahai-calendar') %>
+          <%= link_to 'Bahá’í Calendar', page_url('bahai-calendar'), id: 'bahai-calendar' %>
         </li>
 
 
         <li class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item current_page_item">
-          <%= link_to 'About', page_url('about') %>
+          <%= link_to 'About', page_url('about'), id: 'about' %>
         </li>
       </ul>
     </div>

@@ -24,11 +24,11 @@ Then(/^I should be on the "(.*?)" page$/) do |page_name|
 end
 
 Then(/^the navigation bar should be visible$/) do
-  expect(page).to have_css('.navbar')
+  expect(page).to have_css('#site-navigation')
 end
 
 Then(/^the "(.*?)" link should be highlighted$/) do |link|
-  expect(page).to have_css("##{link}.current")
+  expect(page).to have_css("##{link.underscore}.current")
 end
 
 Then(/^the Administrator should receive an email$/) do
@@ -41,5 +41,5 @@ def replace_tokens_in(text)
 end
 
 def name_to_path(page_name)
-  "#{page_name}_path".to_sym
+  page_path(page_name)
 end
