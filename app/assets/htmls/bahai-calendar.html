@@ -1,0 +1,831 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <title>The Bahá’í Calendar</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style type="text/css">
+      body {
+        margin: 0;
+		width: 3721px;
+      }
+
+	  /* Format the calendar */
+	  .calendar {
+		margin: 20px;
+		text-align: center;
+		font-family: sans-serif;
+		width: 3681px;
+		height: 300px;
+	  }
+	  
+	  .month {
+		float:left;
+		border: 1px solid black;
+		border-right: none;
+		width: 190px;
+		height: 135px;
+		padding-top: 25px;
+		position: relative;
+		background: rgb(252,255,244);
+		background: -moz-linear-gradient(left,  rgba(252,255,244,1) 0%, rgba(223,229,215,1) 40%, rgba(179,190,173,1) 100%);
+		background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(252,255,244,1)), color-stop(40%,rgba(223,229,215,1)), color-stop(100%,rgba(179,190,173,1)));
+		background: -webkit-linear-gradient(left,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%);
+		background: -o-linear-gradient(left,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%);
+		background: -ms-linear-gradient(left,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%);
+		background: linear-gradient(to right,  rgba(252,255,244,1) 0%,rgba(223,229,215,1) 40%,rgba(179,190,173,1) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#b3bead',GradientType=1 );
+	  }
+	  
+	  .month:last-child {
+  		border-right: 1px solid black;
+	  }
+	  
+	  .month .number {
+		font-size: 16px;
+		font-weight: bold;
+		position: absolute;
+		top: -16px;
+		left: 81px;
+		width: 24px;
+		height: 21px;
+		padding-top: 3px;
+		color: white;
+		background: green;
+		border-radius: 50%;
+		border: 3px solid green;
+	  }
+	  
+	  .month .name {
+		font-weight: bold;
+		font-size: 26px;
+	  }
+	  
+	  .month .translated {
+		color: #666;
+	  }
+	  
+	  .month .gregorian {
+		margin-top: 6px;
+		font-size: 14px;
+	  }
+	  
+	  .month .days {
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 10px;
+		border-top: 1px solid black;
+	  }
+	  
+	  .month .day {
+		width: 8px;
+		height: 8px;
+		border: 1px solid #ddd;
+		float: left;
+		font-size: 7px;
+		cursor: default;
+	  }
+	  
+	  .month .day:hover {
+		border-top: 1px solid transparent;
+	  }
+	  
+	  .month .day:hover:after {
+	    background: inherit;
+		color: inherit;
+		font-size: 16px;
+		font-weight: bold;
+		padding: 1px 3px;
+		top: -22px;
+		left: 0;
+		height: 20px;
+		width: 184px;
+		position: absolute;
+		z-index: 10;
+		content: attr(title);
+	  }
+
+	  .month .day .description {
+		color: #000;
+		font-size: 16px;
+		white-space:nowrap;
+	  }
+
+	  .month .day .arrow {
+		margin-left: 3px;
+		width: 2px;
+		margin-top: -1px;
+		height: 10px;
+	  }
+	  
+	  .month .day .arrow.double {
+	  		height: 80px;
+	  }
+
+	  /* Special rules for intercalery month */
+	  .month.intercalery {
+		width: 50px;
+	  }
+
+	  .month .day.intercalery:hover:after{
+		display: none;
+	  }
+
+	  .month .day.intercalery:hover {
+		border-top: 1px solid #ddd;
+	  }
+	  
+	  .month .day.intercalery .description .arrow {
+		height: 60px;
+	  }
+	  
+	  .month.intercalery .name {
+		font-size: 16px;
+	  }
+	  
+ 	  .month.intercalery .vertical {
+		white-space:nowrap;
+		-ms-transform: rotate(270deg);
+		-moz-transform: rotate(270deg);
+		-webkit-transform: rotate(270deg);
+		transform: rotate(270deg);
+		margin-top:50px;
+	  }
+
+ 	  .month.intercalery .vertical .translated {
+		margin-left: -20px;
+	  }
+	  
+	  .month.intercalery .name {
+		display: none;
+	  }
+	  
+	  /* Special rule for lunar Holy Days */
+	  .month .description.lunar {
+		position: absolute;
+		text-align: left;
+		white-space: nowrap;
+		top: 17px;
+		left: 170px;
+	  }
+	  
+	  /* Color the days */
+	  .month .day {
+		color: #444;
+		background-color: #fff;
+	  }
+	  
+	  .month .day.ridvan {
+		background-color: #f8e0e0;
+	  }
+	  
+	  .month .day.nowork,
+	  .month .day.nowork .description .arrow {
+		background-color: red;
+		color: white;
+	  }
+	  
+	  .month .day.work,
+	  .month .day.work .description .arrow {
+		background-color: #58acfa;
+		color: white;
+	  }
+
+	  .month .day.intercalery,
+	  .month .day.intercalery .description .arrow {
+		background-color: #9A2EFE;
+		color: white;
+	  }
+	  
+	  .month .day.fasting,
+	  .month .day.fasting .description .arrow {
+		background-color: #ff8000;
+		color: white;
+	  }
+	  
+    </style>
+  </head>
+  <body>
+
+<div class="calendar">
+
+	<div class="month name1">
+		<div class="number">1</div>
+		<div class="name">Bahá</div>
+		<div class="name translated">(Splendor)</div>
+		<div class="gregorian">20/21 March -<br />7/8 April</div>
+		<div class="days">
+			<div class="day name1 holy nowork" title="1. Bahá (Splendor)">1
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>Feast of Naw-Rúz</strong><br />
+					Bahá’í New Year<br />
+					<span class="gregorian">20/21 March</span>
+				</div>
+			</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name2">
+		<div class="number">2</div>
+		<div class="name">Jalál</div>
+		<div class="name translated">(Glory)</div>
+		<div class="gregorian">8/9 April -<br />26/27 April</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13 ridvan holy nowork" title="13. Qudrat (Power)">13
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>Festival of Riḍván</strong><br />
+					Declaration of Bahá’u’lláh<br />
+					<span class="gregorian">20/21 April - 1/2 May</span>
+				</div>
+			</div>
+			<div class="day name14 ridvan" title="14. Qawl (Speech)">14</div>
+			<div class="day name15 ridvan" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16 ridvan" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17 ridvan" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18 ridvan" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19 ridvan" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name3">
+		<div class="number">3</div>
+		<div class="name">Jamál</div>
+		<div class="name translated">(Beauty)</div>
+		<div class="gregorian">27/28 April -<br />15/16 May</div>
+		<div class="days">
+			<div class="day name1 ridvan" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2 ridvan holy nowork" title="2. Jalál (Glory)">2
+				<div class="description">
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div class="day name3 ridvan" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4 ridvan" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5 ridvan holy nowork" title="5. Núr (Light)">5
+				<div class="description">
+					<div class="arrow"></div>
+				</div>
+			</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name4">
+		<div class="number">4</div>
+		<div class="name">‘Aẓamat</div>
+		<div class="name translated">(Grandeur)</div>
+		<div class="gregorian">16/17 May -<br />3/4 June</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8 holy nowork" title="8. Kamál (Perfection)">8
+				<div class="description">
+					<div class="arrow double"></div>
+					<strong>Anniversary of the <br />Declaration of the Báb</strong><br />
+					<span class="gregorian">23/24 May</span>
+				</div>
+			</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13 holy nowork" title="13. Qudrat (Power)">13
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>Anniversary of the <br />Ascension of Bahá’u’lláh </strong><br />
+					<span class="gregorian">28/29 May</span>
+				</div>
+			</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name5">
+		<div class="number">5</div>
+		<div class="name">Núr</div>
+		<div class="name translated">(Light)</div>
+		<div class="gregorian">4/5 June -<br />22/23 June</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name6">
+		<div class="number">6</div>
+		<div class="name">Raḥmat</div>
+		<div class="name translated">(Mercy)</div>
+		<div class="gregorian">23/24 June -<br />11/12 July</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17 holy nowork" title="17. Sulṭán (Sovereignty)">17
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>Anniversary of the <br />Martyrdom of the Báb</strong><br />
+					<span class="gregorian">9/10 July</span>
+				</div>
+			</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name7">
+		<div class="number">7</div>
+		<div class="name">Kalimát</div>
+		<div class="name translated">(Words)</div>
+		<div class="gregorian">12/13 July -<br />30/31 July</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name8">
+		<div class="number">8</div>
+		<div class="name">Kamál</div>
+		<div class="name translated">(Perfection)</div>
+		<div class="gregorian">31 July/1 August -<br />18/19 August</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name9">
+		<div class="number">9</div>
+		<div class="name">Asmá’</div>
+		<div class="name translated">(Names)</div>
+		<div class="gregorian">19/20 August -<br />6/7 September</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name10">
+		<div class="number">10</div>
+		<div class="name">‘Izzat</div>
+		<div class="name translated">(Might)</div>
+		<div class="gregorian">7/8 September -<br />25/26 September</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name11">
+		<div class="number">11</div>
+		<div class="name">Ma<u>sh</u>íyyat</div>
+		<div class="name translated">(Will)</div>
+		<div class="gregorian">26/27 September -<br />14/15 October</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+				<div class="description lunar">
+					<div class="arrow"></div>
+					<strong>Anniversary of the Birth of the Báb</strong> and<br />
+					<strong>Anniversary of the Birth of Bahá’u’lláh</strong><br />
+					Twin Holy Days, timed according to the lunar calendar<br />
+					<span class="gregorian">They occur between mid-October and mid-November</span>
+				</div>
+		</div>
+	</div>
+
+	<div class="month name12">
+		<div class="number">12</div>
+		<div class="name">‘Ilm</div>
+		<div class="name translated">(Knowledge)</div>
+		<div class="gregorian">15/16 October -<br />2/3 November</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name13">
+		<div class="number">13</div>
+		<div class="name">Qudrat</div>
+		<div class="name translated">(Power)</div>
+		<div class="gregorian">3/4 November -<br />21/22 November</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name14">
+		<div class="number">14</div>
+		<div class="name">Qawl</div>
+		<div class="name translated">(Speech)</div>
+		<div class="gregorian">22/23 November -<br />10/11 December</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4 holy work" title="4. ‘Aẓamat (Grandeur)">4
+				<div class="description">
+					<div class="arrow double"></div>
+					<strong>Day of the Covenant</strong><br />
+					<span class="gregorian">25/26 November</span>
+				</div>
+			</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6 holy work" title="6. Raḥmat (Mercy)">6
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>Anniversary of the <br />Ascension of ‘Abdu’l-Bahá</strong><br />
+					<span class="gregorian">27/28 November</span>
+				</div>
+			</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name15">
+		<div class="number">15</div>
+		<div class="name">Masá’il</div>
+		<div class="name translated">(Questions)</div>
+		<div class="gregorian">11/12 December -<br />29/30 December</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name16">
+		<div class="number">16</div>
+		<div class="name"><u>Sh</u>araf</div>
+		<div class="name translated">(Honour)</div>
+		<div class="gregorian">30/31 December -<br />17/18 January</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name17">
+		<div class="number">17</div>
+		<div class="name">Sulṭán</div>
+		<div class="name translated">(Sovereignty)</div>
+		<div class="gregorian">18/19 January -<br />5/6 February</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month name18">
+		<div class="number">18</div>
+		<div class="name">Mulk</div>
+		<div class="name translated">(Dominion)</div>
+		<div class="gregorian">6/7 February -<br />24/25 February</div>
+		<div class="days">
+			<div class="day name1" title="1. Bahá (Splendor)">1</div>
+			<div class="day name2" title="2. Jalál (Glory)">2</div>
+			<div class="day name3" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5" title="5. Núr (Light)">5</div>
+			<div class="day name6" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7" title="7. Kalimát (Words)">7</div>
+			<div class="day name8" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13" title="13. Qudrat (Power)">13</div>
+			<div class="day name14" title="14. Qawl (Speech)">14</div>
+			<div class="day name15" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+	<div class="month intercalery">
+		<div class="vertical">
+			<div class="name">Ayyám-i-Há</div>
+			<div class="name translated">(Intercalery days)</div>
+		</div>
+		<div class="days">
+			<div class="day intercalery">1
+				<div class="description">
+					<div class="arrow double"></div>
+					<strong>Ayyám-i-Há</strong>	or <strong>Intercalery days</strong><br />
+					<span class="gregorian">25/26 February -<br />28/29 February/1 March</span>
+				</div>
+			</div>
+			<div class="day intercalery">2</div>
+			<div class="day intercalery">3</div>
+			<div class="day intercalery">4</div>
+			<div class="day intercalery">5</div>
+		</div>
+	</div>
+	
+	<div class="month name19">
+		<div class="number">19</div>
+		<div class="name">‘Alá’</div>
+		<div class="name translated">(Loftiness)</div>
+		<div class="gregorian">1/2 March -<br />19/20 March</div>
+		<div class="days">
+			<div class="day name1 fasting" title="1. Bahá (Splendor)">1
+				<div class="description">
+					<div class="arrow"></div>
+					<strong>The Fast</strong><br />
+					<span class="gregorian">1/2 March - 19/20 March</span>
+				</div>
+			</div>
+			<div class="day name2 fasting" title="2. Jalál (Glory)">2</div>
+			<div class="day name3 fasting" title="3. Jamál (Beauty)">3</div>
+			<div class="day name4 fasting" title="4. ‘Aẓamat (Grandeur)">4</div>
+			<div class="day name5 fasting" title="5. Núr (Light)">5</div>
+			<div class="day name6 fasting" title="6. Raḥmat (Mercy)">6</div>
+			<div class="day name7 fasting" title="7. Kalimát (Words)">7</div>
+			<div class="day name8 fasting" title="8. Kamál (Perfection)">8</div>
+			<div class="day name9 fasting" title="9. Asmá’ (Names)">9</div>
+			<div class="day name10 fasting" title="10. ‘Izzat (Might)">10</div>
+			<div class="day name11 fasting" title="11. Mashíyyat (Will)">11</div>
+			<div class="day name12 fasting" title="12. ‘Ilm (Knowledge)">12</div>
+			<div class="day name13 fasting" title="13. Qudrat (Power)">13</div>
+			<div class="day name14 fasting" title="14. Qawl (Speech)">14</div>
+			<div class="day name15 fasting" title="15. Masá’il (Questions)">15</div>
+			<div class="day name16 fasting" title="16. Sharaf (Honour)">16</div>
+			<div class="day name17 fasting" title="17. Sulṭán (Sovereignty)">17</div>
+			<div class="day name18 fasting" title="18. Mulk (Dominion)">18</div>
+			<div class="day name19 fasting" title="19. ‘Alá’ (Loftiness)">19</div>
+		</div>
+	</div>
+
+  </div>
+  </body>
+</html>
