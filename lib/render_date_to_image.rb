@@ -1,4 +1,5 @@
 require 'erb'
+require 'imgkit'
 require 'bahai_date'
 
 class RenderDateToImage
@@ -10,6 +11,7 @@ class RenderDateToImage
     set_date(year, month, day)
     load_template
     render_template_to_html
+    render_html_to_image
   end
 
   def set_date(year, month, day)
@@ -22,5 +24,11 @@ class RenderDateToImage
 
   def render_template_to_html
     @html = ERB.new(@template).result binding
+  end
+
+  def render_html_to_image
+    options = { 'height' => 506, 'width' => 968, 'quality' => 75 }
+    kit = IMGKit.new(@html, options)
+    kit.to_img
   end
 end

@@ -19,4 +19,19 @@ describe RenderDateToImage do
     renderer.render_template_to_html
     expect(renderer.html).to eq('something')
   end
+
+  it 'renders the html to a jpg' do
+    renderer.html = '<html><body>Test</body></html>'
+    result = renderer.render_html_to_image
+    expect(result.size).to be > 1000
+  end
+
+  it 'performs all steps and returns the image' do
+    expect(renderer).to receive(:set_date).with(1, 2, 3)
+    expect(renderer).to receive(:load_template)
+    expect(renderer).to receive(:render_template_to_html)
+    expect(renderer).to receive(:render_html_to_image).and_return('image')
+    result = renderer.perform(1, 2, 3)
+    expect(result).to eq('image')
+  end
 end

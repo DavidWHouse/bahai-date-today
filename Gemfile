@@ -38,6 +38,9 @@ gem 'google-webfonts'
 # astro-algo gem with fixes
 gem 'astro-algo', git: 'git@github.com:lessan/astro-algo.git'
 
+# html to image
+gem 'imgkit'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
