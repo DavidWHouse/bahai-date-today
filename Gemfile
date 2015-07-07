@@ -26,7 +26,11 @@ gem 'jbuilder', '~> 2.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Convert between the Baha'i and Gregorian calendars
 gem 'bahai_date'
+
+# Manage static pages
+gem 'high_voltage'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
