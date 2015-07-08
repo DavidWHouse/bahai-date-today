@@ -1,8 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <style type='text/css'>
+<%
+def determine_asset_path(path)
+  @rails_root.join('app', 'assets', 'images', path)
+end
+style = File.read(@rails_root.join('app', 'assets', 'stylesheets', 'date.scss'))
+REGEX = /image_url\(['"](.+)['"]\)(.+)/
+style = style.gsub(REGEX) do
+  "url(#{determine_asset_path($1)})#{$2}"
+end
+%>
+<%= style %>
+  </style>
+</head>
+<body>
 <%
 def sel(expected, actual)
   ' selected' if expected == actual
 end
  %>
+
 <div class="content">
 
   <div id="longdate">
@@ -120,3 +140,6 @@ end
   </div><!-- .right-side -->
 
 </div><!-- .content -->
+
+</body>
+</html>

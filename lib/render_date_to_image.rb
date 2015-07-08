@@ -5,7 +5,7 @@ require 'bahai_date'
 class RenderDateToImage
   attr_accessor :date, :rails_root, :target_path, :source_file, :template, :html
 
-  TEMPLATE_PATH = 'app/assets/htmls/date.html.erb'
+  TEMPLATE_PATH = 'lib/assets/date.html.erb'
 
   def initialize(date, rails_root)
     @date = date
