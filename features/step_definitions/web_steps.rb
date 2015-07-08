@@ -43,7 +43,6 @@ Then(/^the Administrator should receive an email$/) do
   pending # express the regexp above with the code you wish you had
 end
 
-
 def name_to_path(page_name)
   page_path(page_name)
 end

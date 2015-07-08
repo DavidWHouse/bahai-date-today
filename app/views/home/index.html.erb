@@ -1,2 +1,7 @@
 <%= content_for :active, 'home' %>
 <%= Date.today %>
+<%= @date.to_s %>
+<%= image_tag date_path(year: @date.year.bahai_era,
+                       month: @date.month.number,
+                         day: @date.day.number,
+                      format: 'jpg') %>

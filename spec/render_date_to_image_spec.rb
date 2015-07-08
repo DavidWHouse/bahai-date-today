@@ -17,7 +17,6 @@ describe RenderDateToImage do
     expect(renderer.target_path).to eq('root/tmp/date.jpg')
   end
 
-
   it 'loads the template' do
     renderer.load_template
     expect(renderer.template).to include('div')

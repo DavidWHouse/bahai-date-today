@@ -21,7 +21,7 @@ class RenderDateToImage
   end
 
   def determine_target_path
-    filename = "#{@date.to_s}.jpg"
+    filename = "#{@date}.jpg"
     @target_path = @rails_root.join('tmp', filename).to_s
   end
 
