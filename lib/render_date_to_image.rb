@@ -3,10 +3,9 @@ require 'imgkit'
 require 'bahai_date'
 
 class RenderDateToImage
-  attr_accessor :date, :rails_root, :target_path, :template, :html
+  attr_accessor :date, :rails_root, :target_path, :source_file, :template, :html
 
   TEMPLATE_PATH = 'app/assets/htmls/date.html.erb'
-  STYLESHEET_PATH = 'app/assets/stylesheets/date.css'
 
   def initialize(date, rails_root)
     @date = date
@@ -17,6 +16,7 @@ class RenderDateToImage
     determine_target_path
     load_template
     render_template_to_html
+    write_html_to_temp_file
     render_html_to_image
   end
 
@@ -33,10 +33,15 @@ class RenderDateToImage
     @html = ERB.new(@template).result binding
   end
 
+  def write_html_to_temp_file
+    @source_file = Tempfile.new(%w(date .html))
+    @source_file.write @html
+    @source_file.flush
+  end
+
   def render_html_to_image
     options = { 'height' => 506, 'width' => 968, 'quality' => 75 }
-    kit = IMGKit.new(@html, options)
-    kit.stylesheets << STYLESHEET_PATH
+    kit = IMGKit.new(@source_file, options)
     kit.to_file(@target_path)
   end
 end
