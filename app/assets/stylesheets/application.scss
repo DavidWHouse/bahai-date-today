@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+
+@import "materialize";
+
+img.date-today {
+  width: 100%;
+}
+
+nav ul a {
+  @extend .black-text;
+}
+
+.site-title a {
+  @extend .black-text;
+}

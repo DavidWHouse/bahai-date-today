@@ -1,22 +1,17 @@
 <%= content_for :active, 'home' %>
-<article>
-  <header>
-    <%= image_tag date_path(year: @date.year.bahai_era,
+
+<h1><%= image_tag date_path(year: @date.year.bahai_era,
                            month: @date.month.number,
                              day: @date.day.number,
-                          format: 'jpg'), size: '968x506' %>
+                          format: 'jpg'), class: 'card' %></h1>
 
-    <h1 class="entry-title">
-      <%= link_to date_path(year: @date.year.bahai_era,
-                           month: @date.month.number,
-                             day: @date.day.number), rel: 'bookmark' do %>
-        <%= @date.long_format %><br />
-        (<%= @date.gregorian_date.strftime("%A %-d %B %Y") %>)</a>
-      <% end %>
-    </h1>
-  </header>
+<h4 class="center">
+  <%= link_to date_path(year: @date.year.bahai_era,
+                       month: @date.month.number,
+                         day: @date.day.number), rel: 'bookmark' do %>
+    <%= @date.long_format %><br />
+    (<%= @date.gregorian_date.strftime("%A %-d %B %Y") %>)</a>
+  <% end %>
+</h4>
 
-  <div class="entry-content">
-    <p style="text-align:center">The day started at sunset on <%= (@date.gregorian_date - 1).strftime("%-d %B %Y") %>.</p>
-  </div>
-</article>
+<p class="center">The day started at sunset on <%= (@date.gregorian_date - 1).strftime("%-d %B %Y") %>.</p>

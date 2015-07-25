@@ -1,28 +1,33 @@
-<header class="site-header" id="masthead">
+<header>
   <hgroup>
-    <h1 class="site-title"><%= link_to 'Bahá’í Date Today', root_url, title: 'Bahá’í Date Today', rel: 'home' %></h1>
+    <h5 class="site-title"><%= link_to 'Bahá’í Date Today', root_url, title: 'Bahá’í Date Today', rel: 'home' %></h5>
   </hgroup>
 
-
-  <nav id="site-navigation">
-    <button class="menu-toggle">Menu</button> <a class="assistive-text" href="#content" title="Skip to content">Skip to content</a>
-
-    <div class="menu-menu-container">
-      <ul class="nav-menu" id="menu-menu">
+  <nav>
+    <div class="nav-wrapper grey lighten-4">
+      <ul id="nav-mobile" class="left">
         <li class="home<%= ' active' if yield(:active) == 'home' %>">
-          <%= link_to 'Home', root_url, id: 'home' %>
+          <%= link_to(root_url, id: 'home') do %>
+            <i class="material-icons left grey-text text-darken-2">home</i>Home
+          <% end %>
         </li>
 
         <li class="bahai-calendar<%= ' active' if yield(:active) == 'bahai-calendar' %>">
-          <%= link_to 'Bahá’í Calendar', page_url('bahai-calendar'), id: 'bahai-calendar' %>
+          <%= link_to(page_url('bahai-calendar'), id: 'bahai-calendar') do %>
+            <i class="material-icons left grey-text text-darken-2">info</i>Bahá’í Calendar
+          <% end %>
         </li>
 
         <li class="table-of-dates<%= ' active' if yield(:active) == 'table-of-dates' %>">
-          <%= link_to 'Table of Dates', page_url('table-of-dates'), id: 'table-of-dates' %>
+          <%= link_to(page_url('table-of-dates'), id: 'table-of-dates') do %>
+            <i class="material-icons left grey-text text-darken-2">view_column</i>Table of Dates
+          <% end %>
         </li>
 
         <li class="about<%= ' active' if yield(:active) == 'about' %>">
-          <%= link_to 'About', page_url('about'), id: 'about' %>
+          <%= link_to(page_url('about'), id: 'about') do %>
+            <i class="material-icons left grey-text text-darken-2">help</i>About
+          <% end %>
         </li>
       </ul>
     </div>
