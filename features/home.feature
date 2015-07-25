@@ -14,16 +14,16 @@ Feature: visitors view the website
 
   Scenario Outline: the navigation bar links to various pages
     Given I am on the landing page
-    When I click on the "<page_title>" link
+    When I click on the "<link_title>" link
     Then I should be on the "<page_name>" page
     And the page title should include "<page_title>"
     And the "<page_name>" item in the navigation bar should be highlighted
 
     Examples:
-      | page_name       | page_title      |
-      | bahai-calendar  | Bahá’í Calendar |
-      | table-of-dates  | Table of Dates  |
-      | about           | About           |
+      | page_name       | link_title      | page_title      |
+      | bahai-calendar  | Bahá’í Calendar | Baha'i Calendar |
+      | table-of-dates  | Table of Dates  | Table of Dates  |
+      | about           | About           | About           |
 
   Scenario: fill in the contact form on the about page
     Given I am on the about page

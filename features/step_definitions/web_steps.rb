@@ -32,11 +32,11 @@ Then(/^I should be on the "(.*?)" page$/) do |page_name|
 end
 
 Then(/^the navigation bar should be visible$/) do
-  expect(page).to have_css('#site-navigation')
+  expect(page).to have_css('header nav')
 end
 
 Then(/^the "(.*?)" item in the navigation bar should be highlighted$/) do |page_name|
-  expect(page).to have_css("#site-navigation .#{page_name}.active")
+  expect(page).to have_css("header nav .#{page_name}.active")
 end
 
 Then(/^the Administrator should receive an email$/) do
