@@ -3,7 +3,7 @@ require 'render_date_to_image'
 class DateController < ApplicationController
   before_action :set_date
 
-  def view
+  def show
     respond_to do |format|
       format.html
       format.jpeg do
