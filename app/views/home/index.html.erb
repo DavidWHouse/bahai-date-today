@@ -1,17 +1,4 @@
 <%= content_for :active, 'home' %>
 
-<h1><%= image_tag date_path(year: @date.year.bahai_era,
-                           month: @date.month.number,
-                             day: @date.day.number,
-                          format: 'jpg'), class: 'date-today card' %></h1>
-
-<h4 class="center">
-  <%= link_to date_path(year: @date.year.bahai_era,
-                       month: @date.month.number,
-                         day: @date.day.number), rel: 'bookmark' do %>
-    <%= @date.long_format %><br />
-    (<%= @date.gregorian_date.strftime("%A %-d %B %Y") %>)</a>
-  <% end %>
-</h4>
-
-<p class="center">The day started at sunset on <%= (@date.gregorian_date - 1).strftime("%-d %B %Y") %>.</p>
+<%= render 'date/card' %>
+<%= render 'date/nav' %>
