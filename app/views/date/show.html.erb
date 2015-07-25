@@ -1,3 +1,4 @@
+<%= content_for :title, "#{@date.day.number} #{@date.month.to_s} #{@date.year.bahai_era}" %>
 <%= content_for :active, 'home' %>
 
 <h1><%= image_tag date_path(year: @date.year.bahai_era,

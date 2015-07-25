@@ -1,6 +1,6 @@
 module ApplicationHelper
   def compose_title(title)
-    return 'Bahá’í Date Today' unless title.present?
-    "#{title} — Bahá’í Date Today"
+    return "Baha'i Date Today" unless title.present?
+    "#{title} — Baha'i Date Today"
   end
 end
