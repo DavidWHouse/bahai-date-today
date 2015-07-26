@@ -2,3 +2,15 @@
 
 <%= render 'date/card' %>
 <%= render 'date/nav' %>
+<ul>
+  <li>Your IP address is: <%= request.remote_ip %></li>
+  <li>Latitude: <%= @geo.latitude %></li>
+  <li>Longitude: <%= @geo.longitude %></li>
+  <li>City: <%= @geo.city %></li>
+  <li>Country: <%= @geo.country %></li>
+  <li>Time Zone: <%= @geo.time_zone %></li>
+  <li>Current server time: <%= Time.now %></li>
+  <li>Current time in Time Zone: <%= @geo.current_time %></li>
+  <li>Sunset today at Latitude and Longitude: <%= @geo.sunset_time_today %></li>
+  <li>Current date (next day if sunset is passed): <%= @geo.current_date %></li>
+</ul>

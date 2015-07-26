@@ -13,15 +13,16 @@ class Geo
   # http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz
   MAXMIND_DATA_FILE = '/usr/share/GeoIP/GeoLite2-City.mmdb'
 
-  attr_reader :latitude, :longitude, :city, :country
+  attr_reader :ip, :latitude, :longitude, :city, :country, :time_zone, :current_time, :sunset_time_today, :current_date
 
   def initialize(ip)
     @ip = ip
     lookup_geo
+    calculate_times_for_current_geo
   end
 
   def bahai_date
-    BahaiDate::BahaiDate.new(date: today)
+    BahaiDate::BahaiDate.new(date: @current_date)
   end
 
   private
@@ -33,20 +34,34 @@ class Geo
       @longitude = results.location.longitude
       @city = results.city.name
       @country = results.country.name
+      @time_zone = results.location.time_zone
     end
 
-    def today
-      return Date.today unless @latitude && @longitude
-      return Date.today unless sunset_passed?
-      Date.tomorrow
+    def calculate_times_for_current_geo
+      @current_time = get_current_time + 5.hours
+      @sunset_time_today = get_sunset_time_today
+      @current_date = get_current_date
     end
 
-    def sunset_today
-      calculator = SolarEventCalculator.new(Time.now, @latitude, @longitude)
-      calculator.compute_utc_solar_event(AZIMUTH, false)
+    def get_current_time
+      return Time.now unless @time_zone
+      Time.now.in_time_zone @time_zone
+    end
+
+    def get_sunset_time_today
+      return @current_time unless @time_zone && @latitude && @longitude
+      calculator = SolarEventCalculator.new(@current_time.to_date, @latitude, @longitude)
+      calculator.compute_utc_solar_event(AZIMUTH, false).in_time_zone(@time_zone)
+    end
+
+    def get_current_date
+      current_date = @current_time.to_date
+      return current_date unless @latitude && @longitude
+      return current_date unless sunset_passed?
+      current_date + 1.day
     end
 
     def sunset_passed?
-      Time.now > sunset_today
+      @current_time > @sunset_time_today
     end
 end
