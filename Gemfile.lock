@@ -109,6 +109,7 @@ GEM
       mime-types (>= 1.16, < 3)
     materialize-sass (0.97.0)
       sass (~> 3.3)
+    maxminddb (0.1.7)
     mime-types (2.6.1)
     mini_portile (0.6.2)
     minitest (5.7.0)
@@ -220,6 +221,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   materialize-sass
+  maxminddb
   rails (= 4.2.3)
   rspec-rails
   rubocop

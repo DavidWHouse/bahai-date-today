@@ -2,6 +2,7 @@ require 'bahai_date'
 
 class HomeController < ApplicationController
   def index
-    @date = BahaiDate::BahaiDate.new(date: Date.today)
+    @geo = Geo.new(request.remote_ip)
+    @date = @geo.bahai_date
   end
 end
